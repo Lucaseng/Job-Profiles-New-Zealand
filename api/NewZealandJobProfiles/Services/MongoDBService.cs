@@ -33,6 +33,13 @@ namespace NewZealandJobProfiles.Services
             return await _jobCollection.Find(new BsonDocument()).ToListAsync();
         }
 
+        public async Task<Job> GetByIdAsync(string id)
+        {
+            FilterDefinition<Job> filter = Builders<Job>.Filter.Eq("Id", id);
+            return await _jobCollection.Find(filter).FirstOrDefaultAsync();
+        }
+
+
         public async Task DeleteAsync(string id)
         {
             FilterDefinition<Job> filter = Builders<Job>.Filter.Eq("Id", id);

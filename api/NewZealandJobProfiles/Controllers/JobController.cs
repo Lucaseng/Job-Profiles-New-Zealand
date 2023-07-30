@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using NewZealandJobProfiles.Models;
 using NewZealandJobProfiles.Services;
 
@@ -18,6 +19,24 @@ namespace NewZealandJobProfiles.Controllers
         public async Task<List<Job>> Get()
         {
             return await _mongoDBService.GetAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(string id)
+        {
+            if (!ObjectId.TryParse(id, out _))
+            {
+                return BadRequest(new Fail { fail = string.Format("{0} is not a valid ObjectId!", id) });
+            }
+
+            Job job = await _mongoDBService.GetByIdAsync(id);
+
+            if (job == null)
+            {
+                return BadRequest(new Fail { fail = string.Format("No Job with id {0} found!", id) });
+            }
+
+            return Ok(job);
         }
 
         [HttpPost]

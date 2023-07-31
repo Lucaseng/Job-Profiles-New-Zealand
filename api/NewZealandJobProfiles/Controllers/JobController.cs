@@ -40,9 +40,9 @@ namespace NewZealandJobProfiles.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<IActionResult> Search(string keyword, string opportunity, int? entrySalaryLower, int? entrySalaryUpper, int? expSalaryLower, int? expSalaryUpper, string sortBy)
+        public async Task<IActionResult> Search(string keyword, string opportunity, int? entrySalaryLower, int? entrySalaryUpper, int? expSalaryLower, int? expSalaryUpper, string sortBy, int? page)
         {
-            List<Job> jobList = await _mongoDBService.Search(keyword, opportunity, entrySalaryLower, entrySalaryUpper, expSalaryLower, expSalaryUpper, sortBy);
+            List<Job> jobList = await _mongoDBService.Search(keyword, opportunity, entrySalaryLower, entrySalaryUpper, expSalaryLower, expSalaryUpper, sortBy, page);
             return Ok(jobList);
         }
 

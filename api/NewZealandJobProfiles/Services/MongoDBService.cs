@@ -95,26 +95,54 @@ namespace NewZealandJobProfiles.Services
                 string[] sortByArr = sortBy.Split(' ');
 
                 var sortBuilder = Builders<Job>.Sort;
-                SortDefinition<Job> sort = null;
+                List<SortDefinition<Job>> sortDefinitions = new List<SortDefinition<Job>>();
 
-
-                if (sortByArr.Contains("EntrySalaryLower"))
+                foreach (var sortParam in sortByArr)
                 {
-                    // Create a field definition for the first element of the first salaries array
-                    var firstSalaryField = "salaries.0.range.0";
-                    sort = sort == null ? sortBuilder.Ascending(firstSalaryField) : sort.Ascending(firstSalaryField);
-                }
-                else if (sortByArr.Contains("-EntrySalaryLower"))
-                {
-                    // Create a field definition for the first element of the first salaries array
-                    var firstSalaryField = "salaries.0.range.0";
-                    sort = sort == null ? sortBuilder.Descending(firstSalaryField) : sort.Descending(firstSalaryField);
+                    string sortField;
+                    bool isDescending = false;
 
+                    if (sortParam.StartsWith("-"))
+                    {
+                        sortField = sortParam.Substring(1);
+                        isDescending = true;
+                    }
+                    else
+                    {
+                        sortField = sortParam;
+                    }
+
+                    // Check for specific fields and map them to the corresponding salary range
+                    if (sortField == "EntrySalaryLower")
+                    {
+                        sortField = "salaries.0.range.0";
+                    }
+                    else if (sortField == "EntrySalaryUpper")
+                    {
+                        sortField = "salaries.0.range.1";
+                    }
+                    else if (sortField == "ExpSalaryLower")
+                    {
+                        sortField = "salaries.1.range.0";
+                    }
+                    else if (sortField == "ExpSalaryUpper")
+                    {
+                        sortField = "salaries.1.range.1";
+                    }
+
+                    SortDefinition<Job> currentSort = isDescending
+                        ? sortBuilder.Descending(sortField)
+                        : sortBuilder.Ascending(sortField);
+
+                    sortDefinitions.Add(currentSort);
                 }
 
+                SortDefinition<Job> sort = sortBuilder.Combine(sortDefinitions);
 
                 return await _jobCollection.Find(filter).Sort(sort).ToListAsync();
             }
+
+
 
 
             return await _jobCollection.Find(filter).ToListAsync();

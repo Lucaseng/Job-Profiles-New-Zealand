@@ -8,10 +8,29 @@ import {
   Input,
   InputAdornment,
   Container,
+  Chip,
+  Stack,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { useState } from "react";
+import RangeSlider from "./RangeSlider";
 
 function SearchBar() {
+  const [opportunity, setOpportunity] = React.useState("");
+  const [sort, setSort] = React.useState("");
+
+  const handleChange = (event) => {
+    setOpportunity(event.target.value);
+  };
+
+  const handleSortChange = (event) => {
+    setSort(event.target.value);
+  };
+
   return (
     <AppBar sx={{ bgcolor: "" }} position="static">
       <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -22,7 +41,7 @@ function SearchBar() {
           v1.0
         </Typography>
       </Toolbar>
-      <Box sx={{ height: "8em", backgroundColor: "#fff" }}>
+      <Box sx={{ height: "12em", backgroundColor: "#fff" }}>
         <Container sx={{ mt: 3 }}>
           <TextField
             id="input-with-icon-textfield"
@@ -38,6 +57,52 @@ function SearchBar() {
             }}
             variant="outlined"
           />
+          <Stack
+            direction="row"
+            sx={{
+              mt: 3,
+              alignItems: "center",
+            }}
+          >
+            <div>
+              <FormControl sx={{ width: 150, pr: 2 }}>
+                <InputLabel>Opportunity</InputLabel>
+                <Select
+                  sx={{ borderRadius: "30px" }}
+                  value={opportunity}
+                  label="Opportunity"
+                  onChange={handleChange}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={10}>Poor</MenuItem>
+                  <MenuItem value={20}>Average</MenuItem>
+                  <MenuItem value={30}>Good</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl sx={{ width: 200, pr: 4 }}>
+                <InputLabel>Sort By</InputLabel>
+                <Select
+                  sx={{ borderRadius: "30px" }}
+                  value={sort}
+                  label="Sort By"
+                  onChange={handleSortChange}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={10}>Entry Salary</MenuItem>
+                  <MenuItem value={20}>Experienced Salary</MenuItem>
+                  <MenuItem value={30}>Name</MenuItem>
+                  <MenuItem value={30}>Opportunity</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+
+            <RangeSlider labelText={"Entry Salary Range"}></RangeSlider>
+            <RangeSlider labelText={"Experienced Salary Range"}></RangeSlider>
+          </Stack>
         </Container>
       </Box>
     </AppBar>

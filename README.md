@@ -10,6 +10,10 @@ Job Profiles New Zealand is a platform which looks to combine the strengths of b
 ![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
+## 
+![image](https://github.com/Lucaseng/Job-Profiles-New-Zealand/assets/26078574/91248d1b-142f-4be0-b018-ac9f26d27797)
+
+
 ## Backend Development
 The Backend API was developed using ASP.Net Core Web API & MongoDB. 
 

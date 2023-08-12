@@ -10,15 +10,30 @@ import {
 } from "@mui/material";
 import { Label } from "@mui/icons-material";
 
-export default function RangeSlider({ labelText }) {
+export default function RangeSlider({
+  labelText,
+  resetSlider,
+  setResetSlider,
+}) {
   const [value, setValue] = React.useState([0, 300000]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  const displayK = (value) => {
+    return "$" + value / 1000 + "K";
+  };
+
+  React.useEffect(() => {
+    if (resetSlider) {
+      setValue([0, 300000]);
+      setResetSlider(false);
+    }
+  }, [resetSlider]);
+
   return (
-    <Box sx={{ width: 300, pl: 2, pr: 6 }}>
+    <Box sx={{ width: 300, pl: 2, pr: 5 }}>
       <Stack direction="column">
         <Typography color="#000">{labelText}</Typography>
         <Slider
@@ -29,8 +44,12 @@ export default function RangeSlider({ labelText }) {
           value={value}
           onChange={handleChange}
           valueLabelDisplay="auto"
-          valueLabelFormat={(value) => "$" + value}
+          valueLabelFormat={displayK}
         />
+        <Stack direction="row" justifyContent="space-between">
+          <Typography color="#000">{displayK(value[0])}</Typography>
+          <Typography color="#000">{displayK(value[1])}</Typography>
+        </Stack>
       </Stack>
     </Box>
   );

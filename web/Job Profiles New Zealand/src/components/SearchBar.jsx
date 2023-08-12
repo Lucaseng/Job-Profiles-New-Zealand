@@ -14,6 +14,7 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Button,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
@@ -22,13 +23,19 @@ import RangeSlider from "./RangeSlider";
 function SearchBar() {
   const [opportunity, setOpportunity] = React.useState("");
   const [sort, setSort] = React.useState("");
-
+  const [resetSlider, setResetSlider] = React.useState(false);
   const handleChange = (event) => {
     setOpportunity(event.target.value);
   };
 
   const handleSortChange = (event) => {
     setSort(event.target.value);
+  };
+
+  const handleReset = (event) => {
+    setSort("");
+    setOpportunity("");
+    setResetSlider(true);
   };
 
   return (
@@ -41,22 +48,25 @@ function SearchBar() {
           v1.0
         </Typography>
       </Toolbar>
-      <Box sx={{ height: "12em", backgroundColor: "#fff" }}>
+      <Box sx={{ height: "13em", backgroundColor: "#fff" }}>
         <Container sx={{ mt: 3 }}>
-          <TextField
-            id="input-with-icon-textfield"
-            label="Search"
-            placeholder="Keywords"
-            fullWidth
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-            variant="outlined"
-          />
+          <Stack direction="row">
+            <TextField
+              id="input-with-icon-textfield"
+              label="Search"
+              placeholder="Keywords"
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+              variant="outlined"
+            />
+          </Stack>
+
           <Stack
             direction="row"
             sx={{
@@ -65,7 +75,7 @@ function SearchBar() {
             }}
           >
             <div>
-              <FormControl sx={{ width: 150, pr: 2 }}>
+              <FormControl sx={{ width: 130, pr: 2 }}>
                 <InputLabel>Opportunity</InputLabel>
                 <Select
                   sx={{ borderRadius: "30px" }}
@@ -81,7 +91,7 @@ function SearchBar() {
                   <MenuItem value={30}>Good</MenuItem>
                 </Select>
               </FormControl>
-              <FormControl sx={{ width: 200, pr: 4 }}>
+              <FormControl sx={{ width: 150, pr: 4 }}>
                 <InputLabel>Sort By</InputLabel>
                 <Select
                   sx={{ borderRadius: "30px" }}
@@ -95,13 +105,29 @@ function SearchBar() {
                   <MenuItem value={10}>Entry Salary</MenuItem>
                   <MenuItem value={20}>Experienced Salary</MenuItem>
                   <MenuItem value={30}>Name</MenuItem>
-                  <MenuItem value={30}>Opportunity</MenuItem>
+                  <MenuItem value={40}>Opportunity</MenuItem>
                 </Select>
               </FormControl>
             </div>
 
-            <RangeSlider labelText={"Entry Salary Range"}></RangeSlider>
-            <RangeSlider labelText={"Experienced Salary Range"}></RangeSlider>
+            <RangeSlider
+              resetSlider={resetSlider}
+              setResetSlider={setResetSlider}
+              labelText={"Entry Salary Range"}
+            ></RangeSlider>
+            <RangeSlider
+              resetSlider={resetSlider}
+              setResetSlider={setResetSlider}
+              labelText={"Experienced Salary Range"}
+            ></RangeSlider>
+            <Button
+              size="large"
+              sx={{ borderRadius: "30px" }}
+              variant="outlined"
+              onClick={handleReset}
+            >
+              Reset
+            </Button>
           </Stack>
         </Container>
       </Box>

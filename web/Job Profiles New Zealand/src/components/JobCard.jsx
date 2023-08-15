@@ -9,6 +9,8 @@ import {
   Container,
   Box,
 } from "@mui/material";
+import GoodSlider from "./GoodSlider";
+import OpportunitySlider from "./OpportunitySlider";
 
 const jsonObj = {
   title: "Emergency Management Officer",
@@ -63,6 +65,7 @@ function JobCard() {
             <div>
               <Typography>Job Opportunity:</Typography>
               <Typography>{jsonObj.opportunity}</Typography>
+              <GoodSlider></GoodSlider>
             </div>
             <a href={jsonObj.link} target="_blank" rel="noopener noreferrer">
               <Button>Find Out More</Button>

@@ -11,7 +11,8 @@ Job Profiles New Zealand is a platform which looks to combine the strengths of b
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
 ## 
-![Capture](https://github.com/Lucaseng/Job-Profiles-New-Zealand/assets/26078574/eb8c2be9-b5ba-4ca5-9ab7-a5723ba2eefe)
+![image](https://github.com/Lucaseng/Job-Profiles-New-Zealand/assets/26078574/8dc732a2-b61f-4f95-a49a-3464ef955c2d)
+
 
 
 ## Backend Development

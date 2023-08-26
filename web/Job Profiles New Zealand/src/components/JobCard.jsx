@@ -28,7 +28,7 @@ function JobCard({ jsonObj }) {
 
   return (
     <>
-      <Card sx={{ height: "300px", p: 3, mb: 5 }}>
+      <Card sx={{ height: "300px", p: 3, mb: 5, boxShadow: 4 }}>
         <Stack sx={{ height: "300px" }}>
           <Stack direction="row">
             <Stack sx={{ maxWidth: "47%", pr: 6 }}>
@@ -38,10 +38,10 @@ function JobCard({ jsonObj }) {
               <Typography>{jsonObj.subtitle}</Typography>
               <Typography sx={{ pt: 2 }}>{jsonObj.description}</Typography>
             </Stack>
-            <Stack sx={{ alignContent: "center", maxWidth: "45%" }}>
+            <Stack sx={{ justifyContent: "center", maxWidth: "45%" }}>
               {jsonObj.salary.map((salaryObj, i) => {
                 return (
-                  <Typography sx={{ pb: 2 }} key={i}>
+                  <Typography sx={{ pb: 2, fontSize: "18px" }} key={i}>
                     {salaryObj.text}
                   </Typography>
                 );

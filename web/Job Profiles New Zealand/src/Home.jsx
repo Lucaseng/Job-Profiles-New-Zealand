@@ -2,16 +2,22 @@ import React, { useEffect, useState } from "react";
 import Searchbar from "./components/SearchBar";
 import App from "./App";
 import JobCard from "./components/JobCard";
-import { Container, Typography, Stack, CircularProgress } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Stack,
+  CircularProgress,
+  Pagination,
+} from "@mui/material";
+import CustomPagination from "./components/CustomPagination";
 
 function Home() {
   const [data, setData] = useState();
+  const [search, setSearch] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
-      fetch(
-        "https://localhost:8080/api/Job/search?sortBy=-EntrySalaryLower&page=0"
-      )
+      fetch(`https://localhost:8080/api/Job/search?&page=${search}`)
         .then((response) => response.json())
         .then((json) => {
           setData(json);
@@ -20,7 +26,7 @@ function Home() {
     };
 
     fetchData();
-  }, []);
+  }, [search]);
 
   if (!data) {
     return (
@@ -38,13 +44,11 @@ function Home() {
     return (
       <>
         <Searchbar></Searchbar>
-        <Container sx={{ pt: 5 }} maxWidth="lg">
-          {data.map((job, index) => {
-            {
-              return <JobCard key={index} jsonObj={job}></JobCard>;
-            }
-          })}
-        </Container>
+        <CustomPagination
+          setSearch={setSearch}
+          data={data[1]}
+          numPages={data[0]}
+        ></CustomPagination>
       </>
     );
   }

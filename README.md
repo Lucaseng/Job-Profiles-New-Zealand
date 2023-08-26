@@ -9,9 +9,13 @@ Job Profiles New Zealand is a platform which looks to combine the strengths of b
 ![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white)
 ![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
 
 ## 
-![image](https://github.com/Lucaseng/Job-Profiles-New-Zealand/assets/26078574/8dc732a2-b61f-4f95-a49a-3464ef955c2d)
+![image](https://github.com/Lucaseng/Job-Profiles-New-Zealand/assets/26078574/eb39d1c4-5c8f-4462-a2eb-423c161c1385)
+
 
 
 

@@ -40,7 +40,7 @@ namespace NewZealandJobProfiles.Services
             return await _jobCollection.Find(filter).FirstOrDefaultAsync();
         }
 
-        public async Task<List<Job>> Search(string keyword, string opportunity, int? entrySalaryLower, int? entrySalaryUpper, int? expSalaryLower, int? expSalaryUpper, string sortBy, int? page)
+        public async Task<List<Object>> Search(string keyword, string opportunity, int? entrySalaryLower, int? entrySalaryUpper, int? expSalaryLower, int? expSalaryUpper, string sortBy, int? page)
         {
             int myLimit = 0;
             if (page != null)
@@ -145,14 +145,17 @@ namespace NewZealandJobProfiles.Services
                 SortDefinition<Job> sort = sortBuilder.Combine(sortDefinitions);
 
 
+                var sortedJobsInitial = _jobCollection.Find(filter).Sort(sort);
+                var count = await sortedJobsInitial.CountAsync();
+                var sortedJobs = await sortedJobsInitial.Skip(page * 10).Limit(myLimit).ToListAsync();
+                return new List<object> { count, sortedJobs };
 
-                return await _jobCollection.Find(filter).Sort(sort).Skip(page * 10).Limit(myLimit).ToListAsync();
             }
 
 
-
-
-            return await _jobCollection.Find(filter).Skip(page * 10).Limit(myLimit).ToListAsync();
+            var jobs = await _jobCollection.Find(filter).Skip(page * 10).Limit(myLimit).ToListAsync();
+            var jobCount = await _jobCollection.Find(filter).CountAsync();
+            return new List<object> { jobCount, jobs };
         }
 
 

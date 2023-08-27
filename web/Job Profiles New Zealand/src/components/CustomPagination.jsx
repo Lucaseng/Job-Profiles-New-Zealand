@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Stack,
   Box,
@@ -9,9 +9,31 @@ import {
 } from "@mui/material";
 import JobCard from "./JobCard";
 
-function CustomPagination({ data, setSearch, numPages }) {
+function CustomPagination({
+  data,
+  search,
+  setSearch,
+  numPages,
+  reset,
+  setReset,
+}) {
+  const [page, setCurrentPage] = useState(1);
+  useEffect(() => {
+    if (reset) {
+      setCurrentPage(1);
+      setReset(false);
+    }
+  }, [reset]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search[0]]);
   const changePage = (event, value) => {
-    setSearch(value - 1);
+    setCurrentPage(value);
+    let tempSearch = [...search];
+    tempSearch[1] = value - 1;
+
+    setSearch(tempSearch);
   };
   return (
     <>
@@ -33,6 +55,7 @@ function CustomPagination({ data, setSearch, numPages }) {
           <Pagination
             color="primary"
             sx={{ color: "#fff" }}
+            page={page}
             count={Math.floor(numPages / 10)}
             shape="rounded"
             onChange={changePage}

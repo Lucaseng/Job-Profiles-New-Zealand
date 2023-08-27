@@ -13,11 +13,16 @@ import CustomPagination from "./components/CustomPagination";
 
 function Home() {
   const [data, setData] = useState();
-  const [search, setSearch] = useState(0);
+  const [searchArr, setSearchArr] = useState(["", 0]);
+  const [reset, setReset] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      fetch(`https://localhost:8080/api/Job/search?&page=${search}`)
+      let url = `https://localhost:8080/api/Job/search?&page=${searchArr[1]}`;
+      if (searchArr[0] != "") {
+        url += `&opportunity=${searchArr[0]}`;
+      }
+      fetch(url)
         .then((response) => response.json())
         .then((json) => {
           setData(json);
@@ -26,7 +31,7 @@ function Home() {
     };
 
     fetchData();
-  }, [search]);
+  }, [searchArr]);
 
   if (!data) {
     return (
@@ -43,9 +48,17 @@ function Home() {
   } else {
     return (
       <>
-        <Searchbar></Searchbar>
+        <Searchbar
+          reset={reset}
+          setReset={setReset}
+          search={searchArr}
+          setSearch={setSearchArr}
+        ></Searchbar>
         <CustomPagination
-          setSearch={setSearch}
+          reset={reset}
+          setReset={setReset}
+          search={searchArr}
+          setSearch={setSearchArr}
           data={data[1]}
           numPages={data[0]}
         ></CustomPagination>

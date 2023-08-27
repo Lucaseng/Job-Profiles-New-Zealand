@@ -20,13 +20,15 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import RangeSlider from "./RangeSlider";
 
-function SearchBar() {
-  const [opportunity, setOpportunity] = React.useState("");
+function SearchBar({ search, setSearch, reset, setReset }) {
   const [sort, setSort] = React.useState("");
   const [resetSlider, setResetSlider] = React.useState(false);
   const [keyword, setKeyword] = React.useState("");
   const handleChange = (event) => {
-    setOpportunity(event.target.value);
+    let tempSearch = [...search];
+    tempSearch[0] = event.target.value;
+    tempSearch[1] = 0;
+    setSearch(tempSearch);
   };
 
   const handleSortChange = (event) => {
@@ -35,9 +37,11 @@ function SearchBar() {
 
   const handleReset = (event) => {
     setSort("");
-    setOpportunity("");
+    setSearch(["", 0]);
+    //setOpportunity("");
     setResetSlider(true);
     setKeyword("");
+    setReset(true);
   };
 
   const handleText = (event, value) => {
@@ -87,16 +91,16 @@ function SearchBar() {
                 <InputLabel>Opportunity</InputLabel>
                 <Select
                   sx={{ borderRadius: "30px" }}
-                  value={opportunity}
+                  value={search[0]}
                   label="Opportunity"
                   onChange={handleChange}
                 >
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={10}>Poor</MenuItem>
-                  <MenuItem value={20}>Average</MenuItem>
-                  <MenuItem value={30}>Good</MenuItem>
+                  <MenuItem value={"Poor"}>Poor</MenuItem>
+                  <MenuItem value={"Average"}>Average</MenuItem>
+                  <MenuItem value={"Good"}>Good</MenuItem>
                 </Select>
               </FormControl>
               <FormControl sx={{ width: 150, pr: 4 }}>

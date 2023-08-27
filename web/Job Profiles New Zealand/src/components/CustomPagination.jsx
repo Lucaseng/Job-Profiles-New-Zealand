@@ -15,7 +15,7 @@ function CustomPagination({ data, setSearch, numPages }) {
   };
   return (
     <>
-      <Container sx={{ pt: 5, pb: 5 }} maxWidth="lg">
+      <Container sx={{ pt: 5, pb: 7 }} maxWidth="lg">
         {data.map((job, index) => {
           {
             return <JobCard key={index} jsonObj={job}></JobCard>;

@@ -28,7 +28,7 @@ function JobCard({ jsonObj }) {
 
   return (
     <>
-      <Card sx={{ height: "300px", p: 3, mb: 5, boxShadow: 4 }}>
+      <Card sx={{ height: "300px", p: 3, mb: 4, boxShadow: 4 }}>
         <Stack sx={{ height: "300px" }}>
           <Stack direction="row">
             <Stack sx={{ maxWidth: "47%", pr: 6 }}>

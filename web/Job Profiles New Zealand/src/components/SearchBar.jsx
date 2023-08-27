@@ -24,6 +24,7 @@ function SearchBar() {
   const [opportunity, setOpportunity] = React.useState("");
   const [sort, setSort] = React.useState("");
   const [resetSlider, setResetSlider] = React.useState(false);
+  const [keyword, setKeyword] = React.useState("");
   const handleChange = (event) => {
     setOpportunity(event.target.value);
   };
@@ -36,6 +37,11 @@ function SearchBar() {
     setSort("");
     setOpportunity("");
     setResetSlider(true);
+    setKeyword("");
+  };
+
+  const handleText = (event, value) => {
+    setKeyword(event.target.value);
   };
 
   return (
@@ -52,6 +58,8 @@ function SearchBar() {
         <Container sx={{ mt: 3 }}>
           <Stack direction="row">
             <TextField
+              onChange={handleText}
+              value={keyword}
               id="input-with-icon-textfield"
               label="Search"
               placeholder="Keywords"

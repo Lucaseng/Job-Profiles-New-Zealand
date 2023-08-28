@@ -14,9 +14,9 @@ export default function RangeSlider({
   labelText,
   resetSlider,
   setResetSlider,
+  value,
+  setValue,
 }) {
-  const [value, setValue] = React.useState([0, 300000]);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

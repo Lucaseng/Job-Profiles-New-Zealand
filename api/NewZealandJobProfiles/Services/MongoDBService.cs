@@ -87,7 +87,7 @@ namespace NewZealandJobProfiles.Services
             }
 
             // Filter thorugh the lower bound of experienced salaries
-            if (expSalaryLower != null)
+            if (expSalaryUpper != null)
             {
                 filter &= filterBuilder.Lte(j => j.salaries[1].range[1], expSalaryUpper);
 

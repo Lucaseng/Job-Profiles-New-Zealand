@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Typography,
   AppBar,
@@ -24,6 +24,23 @@ function SearchBar({ search, setSearch, reset, setReset }) {
   const [sort, setSort] = React.useState("");
   const [resetSlider, setResetSlider] = React.useState(false);
   const [keyword, setKeyword] = React.useState("");
+  const [entrySalValue, setEntrySalValue] = React.useState([0, 300000]);
+  const [expSalValue, setExpSalValue] = React.useState([0, 300000]);
+
+  useEffect(() => {
+    let tempSearch = [...search];
+    tempSearch[3] = entrySalValue;
+    tempSearch[1] = 0;
+    setSearch(tempSearch);
+  }, [entrySalValue]);
+
+  useEffect(() => {
+    let tempSearch = [...search];
+    tempSearch[4] = expSalValue;
+    tempSearch[1] = 0;
+    setSearch(tempSearch);
+  }, [expSalValue]);
+
   const handleChange = (event) => {
     let tempSearch = [...search];
     tempSearch[0] = event.target.value;
@@ -37,7 +54,7 @@ function SearchBar({ search, setSearch, reset, setReset }) {
 
   const handleReset = (event) => {
     setSort("");
-    setSearch(["", 0, ""]);
+    setSearch(["", 0, "", [0, 300000], [0, 300000]]);
     setResetSlider(true);
     setKeyword("");
     setReset(true);
@@ -129,11 +146,15 @@ function SearchBar({ search, setSearch, reset, setReset }) {
               resetSlider={resetSlider}
               setResetSlider={setResetSlider}
               labelText={"Entry Salary Range"}
+              value={entrySalValue}
+              setValue={setEntrySalValue}
             ></RangeSlider>
             <RangeSlider
               resetSlider={resetSlider}
               setResetSlider={setResetSlider}
               labelText={"Experienced Salary Range"}
+              value={expSalValue}
+              setValue={setExpSalValue}
             ></RangeSlider>
             <Button
               size="large"

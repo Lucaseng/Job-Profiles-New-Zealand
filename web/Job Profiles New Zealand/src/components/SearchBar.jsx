@@ -37,14 +37,17 @@ function SearchBar({ search, setSearch, reset, setReset }) {
 
   const handleReset = (event) => {
     setSort("");
-    setSearch(["", 0]);
-    //setOpportunity("");
+    setSearch(["", 0, ""]);
     setResetSlider(true);
     setKeyword("");
     setReset(true);
   };
 
   const handleText = (event, value) => {
+    let tempSearch = [...search];
+    tempSearch[2] = event.target.value;
+    tempSearch[1] = 0;
+    setSearch(tempSearch);
     setKeyword(event.target.value);
   };
 

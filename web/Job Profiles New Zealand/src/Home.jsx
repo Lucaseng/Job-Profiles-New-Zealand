@@ -13,7 +13,7 @@ import CustomPagination from "./components/CustomPagination";
 
 function Home() {
   const [data, setData] = useState();
-  const [searchArr, setSearchArr] = useState(["", 0]);
+  const [searchArr, setSearchArr] = useState(["", 0, ""]);
   const [reset, setReset] = useState(false);
 
   useEffect(() => {
@@ -21,6 +21,9 @@ function Home() {
       let url = `https://localhost:8080/api/Job/search?&page=${searchArr[1]}`;
       if (searchArr[0] != "") {
         url += `&opportunity=${searchArr[0]}`;
+      }
+      if (searchArr[2] != "") {
+        url += `&keyword=${searchArr[2]}`;
       }
       fetch(url)
         .then((response) => response.json())

@@ -20,8 +20,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import RangeSlider from "./RangeSlider";
 
-function SearchBar({ search, setSearch, reset, setReset }) {
-  const [sort, setSort] = React.useState("");
+function SearchBar({ search, setSearch, reset, setReset, sort, setSort }) {
   const [resetSlider, setResetSlider] = React.useState(false);
   const [keyword, setKeyword] = React.useState("");
   const [entrySalValue, setEntrySalValue] = React.useState([0, 300000]);
@@ -134,10 +133,12 @@ function SearchBar({ search, setSearch, reset, setReset }) {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={10}>Entry Salary</MenuItem>
-                  <MenuItem value={20}>Experienced Salary</MenuItem>
-                  <MenuItem value={30}>Name</MenuItem>
-                  <MenuItem value={40}>Opportunity</MenuItem>
+                  <MenuItem value={"EntrySalaryLower"}>Entry Salary</MenuItem>
+                  <MenuItem value={"ExpSalaryUpper"}>
+                    Experienced Salary
+                  </MenuItem>
+                  <MenuItem value={"title"}>Title</MenuItem>
+                  <MenuItem value={"opportunity"}>Opportunity</MenuItem>
                 </Select>
               </FormControl>
             </div>

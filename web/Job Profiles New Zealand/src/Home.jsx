@@ -21,6 +21,7 @@ function Home() {
     [0, 300000],
   ]);
   const [reset, setReset] = useState(false);
+  const [sort, setSort] = React.useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,6 +44,9 @@ function Home() {
       if (searchArr[4][1] != 300000) {
         url += `&expSalaryUpper=${searchArr[4][1]}`;
       }
+      if (sort != "") {
+        url += `&sortBy=-${sort}`;
+      }
       fetch(url)
         .then((response) => response.json())
         .then((json) => {
@@ -52,7 +56,7 @@ function Home() {
     };
 
     fetchData();
-  }, [searchArr]);
+  }, [searchArr, sort]);
 
   if (!data) {
     return (
@@ -74,6 +78,8 @@ function Home() {
           setReset={setReset}
           search={searchArr}
           setSearch={setSearchArr}
+          sort={sort}
+          setSort={setSort}
         ></Searchbar>
         <CustomPagination
           reset={reset}

@@ -14,9 +14,7 @@ Job Profiles New Zealand is a platform which looks to combine the strengths of b
 ![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
 
 ## 
-![image](https://github.com/Lucaseng/Job-Profiles-New-Zealand/assets/26078574/eb39d1c4-5c8f-4462-a2eb-423c161c1385)
-
-
+![image](https://github.com/Lucaseng/Job-Profiles-New-Zealand/assets/26078574/014839f1-085a-4f2b-8cbc-d2540339ceeb)
 
 
 ## Backend Development

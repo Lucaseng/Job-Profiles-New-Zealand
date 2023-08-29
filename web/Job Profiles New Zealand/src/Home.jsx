@@ -22,6 +22,7 @@ function Home() {
   ]);
   const [reset, setReset] = useState(false);
   const [sort, setSort] = React.useState("");
+  const [order, setOrder] = useState("Ascending");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,7 +46,11 @@ function Home() {
         url += `&expSalaryUpper=${searchArr[4][1]}`;
       }
       if (sort != "") {
-        url += `&sortBy=-${sort}`;
+        if (order == "Descending") {
+          url += `&sortBy=-${sort}`;
+        } else {
+          url += `&sortBy=${sort}`;
+        }
       }
       fetch(url)
         .then((response) => response.json())
@@ -56,7 +61,7 @@ function Home() {
     };
 
     fetchData();
-  }, [searchArr, sort]);
+  }, [searchArr, sort, order]);
 
   if (!data) {
     return (
@@ -80,6 +85,8 @@ function Home() {
           setSearch={setSearchArr}
           sort={sort}
           setSort={setSort}
+          setOrder={setOrder}
+          order={order}
         ></Searchbar>
         <CustomPagination
           reset={reset}

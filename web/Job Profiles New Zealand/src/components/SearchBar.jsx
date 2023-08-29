@@ -20,11 +20,21 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import RangeSlider from "./RangeSlider";
 
-function SearchBar({ search, setSearch, reset, setReset, sort, setSort }) {
+function SearchBar({
+  search,
+  setSearch,
+  reset,
+  setReset,
+  sort,
+  setSort,
+  setOrder,
+  order,
+}) {
   const [resetSlider, setResetSlider] = React.useState(false);
   const [keyword, setKeyword] = React.useState("");
   const [entrySalValue, setEntrySalValue] = React.useState([0, 300000]);
   const [expSalValue, setExpSalValue] = React.useState([0, 300000]);
+  const [enableOrder, setEnableOrder] = useState(true);
 
   useEffect(() => {
     let tempSearch = [...search];
@@ -49,6 +59,12 @@ function SearchBar({ search, setSearch, reset, setReset, sort, setSort }) {
 
   const handleSortChange = (event) => {
     setSort(event.target.value);
+    if (event.target.value != "") {
+      setEnableOrder(false);
+    } else {
+      setOrder("Ascending");
+      setEnableOrder(true);
+    }
   };
 
   const handleReset = (event) => {
@@ -57,6 +73,8 @@ function SearchBar({ search, setSearch, reset, setReset, sort, setSort }) {
     setResetSlider(true);
     setKeyword("");
     setReset(true);
+    setOrder("Ascending");
+    setEnableOrder(true);
   };
 
   const handleText = (event, value) => {
@@ -68,107 +86,126 @@ function SearchBar({ search, setSearch, reset, setReset, sort, setSort }) {
   };
 
   return (
-    <AppBar sx={{ bgcolor: "" }} position="static">
-      <Toolbar sx={{ justifyContent: "space-between" }}>
-        <Typography variant="h6" sx={{ fontWeight: "Medium" }}>
-          Job Profiles New Zealand
-        </Typography>
-        <Typography variant="h6" sx={{ fontWeight: "light" }}>
-          v1.0
-        </Typography>
-      </Toolbar>
-      <Box sx={{ height: "13em", backgroundColor: "#fff" }}>
-        <Container sx={{ mt: 3 }}>
-          <Stack direction="row">
-            <TextField
-              onChange={handleText}
-              value={keyword}
-              id="input-with-icon-textfield"
-              label="Search"
-              placeholder="Keywords"
-              fullWidth
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-              variant="outlined"
-            />
-          </Stack>
+    <>
+      <AppBar sx={{ bgcolor: "" }} position="static">
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Typography variant="h6" sx={{ fontWeight: "Medium" }}>
+            Job Profiles New Zealand
+          </Typography>
+          <Typography variant="h6" sx={{ fontWeight: "light" }}>
+            v1.0
+          </Typography>
+        </Toolbar>
+        <Box sx={{ height: "13em", backgroundColor: "#fff" }}>
+          <Container sx={{ mt: 3 }}>
+            <Stack direction="row">
+              <TextField
+                onChange={handleText}
+                value={keyword}
+                id="input-with-icon-textfield"
+                label="Search"
+                placeholder="Keywords"
+                fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                variant="outlined"
+              />
+            </Stack>
 
-          <Stack
-            direction="row"
-            sx={{
-              mt: 3,
-              alignItems: "center",
+            <Stack
+              direction="row"
+              sx={{
+                mt: 3,
+                alignItems: "center",
+              }}
+            >
+              <div>
+                <FormControl sx={{ width: 130, pr: 2 }}>
+                  <InputLabel>Opportunity</InputLabel>
+                  <Select
+                    sx={{ borderRadius: "30px" }}
+                    value={search[0]}
+                    label="Opportunity"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={"Poor"}>Poor</MenuItem>
+                    <MenuItem value={"Average"}>Average</MenuItem>
+                    <MenuItem value={"Good"}>Good</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ width: 150, pr: 4 }}>
+                  <InputLabel>Sort By</InputLabel>
+                  <Select
+                    sx={{ borderRadius: "30px" }}
+                    value={sort}
+                    label="Sort By"
+                    onChange={handleSortChange}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={"EntrySalaryLower"}>Entry Salary</MenuItem>
+                    <MenuItem value={"ExpSalaryUpper"}>
+                      Experienced Salary
+                    </MenuItem>
+                    <MenuItem value={"title"}>Title</MenuItem>
+                    <MenuItem value={"opportunity"}>Opportunity</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
+
+              <RangeSlider
+                resetSlider={resetSlider}
+                setResetSlider={setResetSlider}
+                labelText={"Entry Salary Range"}
+                value={entrySalValue}
+                setValue={setEntrySalValue}
+              ></RangeSlider>
+              <RangeSlider
+                resetSlider={resetSlider}
+                setResetSlider={setResetSlider}
+                labelText={"Experienced Salary Range"}
+                value={expSalValue}
+                setValue={setExpSalValue}
+              ></RangeSlider>
+              <Button
+                size="large"
+                sx={{ borderRadius: "30px" }}
+                variant="outlined"
+                onClick={handleReset}
+              >
+                Reset
+              </Button>
+            </Stack>
+          </Container>
+        </Box>
+      </AppBar>
+      <Stack sx={{ flexDirection: "row-reverse" }}>
+        <FormControl sx={{ width: 150, pr: 2, pt: 2 }}>
+          <Select
+            disabled={enableOrder}
+            variant="standard"
+            sx={{}}
+            value={order}
+            label="Sort By"
+            onChange={(e) => {
+              setOrder(e.target.value);
             }}
           >
-            <div>
-              <FormControl sx={{ width: 130, pr: 2 }}>
-                <InputLabel>Opportunity</InputLabel>
-                <Select
-                  sx={{ borderRadius: "30px" }}
-                  value={search[0]}
-                  label="Opportunity"
-                  onChange={handleChange}
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={"Poor"}>Poor</MenuItem>
-                  <MenuItem value={"Average"}>Average</MenuItem>
-                  <MenuItem value={"Good"}>Good</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl sx={{ width: 150, pr: 4 }}>
-                <InputLabel>Sort By</InputLabel>
-                <Select
-                  sx={{ borderRadius: "30px" }}
-                  value={sort}
-                  label="Sort By"
-                  onChange={handleSortChange}
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={"EntrySalaryLower"}>Entry Salary</MenuItem>
-                  <MenuItem value={"ExpSalaryUpper"}>
-                    Experienced Salary
-                  </MenuItem>
-                  <MenuItem value={"title"}>Title</MenuItem>
-                  <MenuItem value={"opportunity"}>Opportunity</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
-
-            <RangeSlider
-              resetSlider={resetSlider}
-              setResetSlider={setResetSlider}
-              labelText={"Entry Salary Range"}
-              value={entrySalValue}
-              setValue={setEntrySalValue}
-            ></RangeSlider>
-            <RangeSlider
-              resetSlider={resetSlider}
-              setResetSlider={setResetSlider}
-              labelText={"Experienced Salary Range"}
-              value={expSalValue}
-              setValue={setExpSalValue}
-            ></RangeSlider>
-            <Button
-              size="large"
-              sx={{ borderRadius: "30px" }}
-              variant="outlined"
-              onClick={handleReset}
-            >
-              Reset
-            </Button>
-          </Stack>
-        </Container>
-      </Box>
-    </AppBar>
+            <MenuItem value={"Ascending"}>Ascending</MenuItem>
+            <MenuItem value={"Descending"}>Descending</MenuItem>
+          </Select>
+        </FormControl>
+      </Stack>
+    </>
   );
 }
 
